@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AlgoVision
 
 **AlgoVision - Interactive DAA Algorithm Visualizer** is a professional Python Tkinter desktop application built for Design and Analysis of Algorithms mini project demonstrations, GitHub portfolio presentation, and viva explanation.
@@ -136,3 +137,6 @@ Add screenshots here after running the application:
 ## Academic Use
 
 This project is intended for academic learning, classroom demonstration, mini project evaluation, and viva presentation for Design and Analysis of Algorithms.
+=======
+# AlgoVision
+>>>>>>> aaed2a32b3d059b3330eaacc076e4e8f110380a8
