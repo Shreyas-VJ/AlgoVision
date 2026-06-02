@@ -52,6 +52,35 @@ pip install -r requirements.txt
 python main.py
 ```
 
+## Troubleshooting Tkinter
+
+If the app fails with an error like:
+
+```text
+_tkinter.TclError: Can't find a usable init.tcl
+```
+
+then Python's Tcl/Tk installation is broken or incomplete. AlgoVision cannot open until Tkinter itself works.
+
+Test Tkinter with:
+
+```powershell
+python -c "import tkinter as tk; root=tk.Tk(); root.destroy(); print('Tkinter OK')"
+```
+
+If that command fails, repair or reinstall Python from python.org and make sure the installer includes:
+
+- `tcl/tk and IDLE`
+- `pip`
+- `Add python.exe to PATH`
+
+After reinstalling, run:
+
+```powershell
+python -m pip install -r requirements.txt
+python main.py
+```
+
 ## Algorithms Used
 
 ### Sorting
