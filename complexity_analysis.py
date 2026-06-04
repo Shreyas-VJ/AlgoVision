@@ -16,8 +16,6 @@ except ImportError:
     Figure = None
     FigureCanvasTkAgg = None
 
-from pathfinding.pathfinding_algorithms import ALGORITHM_DETAILS as PATH_DETAILS
-from pathfinding.pathfinding_algorithms import PathfindingAlgorithms
 from searching.searching_algorithms import ALGORITHM_DETAILS as SEARCH_DETAILS
 from searching.searching_algorithms import SearchingAlgorithms
 from sorting.sorting_algorithms import ALGORITHM_DETAILS as SORT_DETAILS
@@ -41,11 +39,6 @@ SEARCH_FUNCS = {
     "Binary Search": SearchingAlgorithms.binary_search,
 }
 
-PATH_FUNCS = {
-    "Dijkstra": PathfindingAlgorithms.dijkstra,
-    "A*": PathfindingAlgorithms.astar,
-}
-
 COMPLEXITY_ROWS = [
     ("Bubble Sort", "O(n)", "O(n^2)", "O(n^2)", "O(1)"),
     ("Selection Sort", "O(n^2)", "O(n^2)", "O(n^2)", "O(1)"),
@@ -55,8 +48,6 @@ COMPLEXITY_ROWS = [
     ("Heap Sort", "O(n log n)", "O(n log n)", "O(n log n)", "O(1)"),
     ("Linear Search", "O(1)", "O(n)", "O(n)", "O(1)"),
     ("Binary Search", "O(1)", "O(log n)", "O(log n)", "O(1)"),
-    ("Dijkstra", "O((V + E) log V)", "O((V + E) log V)", "O((V + E) log V)", "O(V)"),
-    ("A*", "O(E) typical", "O(E) typical", "O((V + E) log V)", "O(V)"),
 ]
 
 
@@ -107,7 +98,7 @@ class ComplexityAnalysisPage(tk.Frame):
 
         chart_tabs = tk.Frame(left, bg=COLORS["bg"])
         chart_tabs.grid(row=0, column=0, sticky="ew", pady=(0, 10))
-        for name in ["Sorting", "Searching", "Pathfinding", "Growth"]:
+        for name in ["Sorting", "Searching", "Growth"]:
             ttk.Radiobutton(
                 chart_tabs,
                 text=name,
@@ -188,8 +179,6 @@ class ComplexityAnalysisPage(tk.Frame):
             self._draw_sorting_chart()
         elif chart == "Searching":
             self._draw_searching_chart()
-        elif chart == "Pathfinding":
-            self._draw_pathfinding_chart()
         else:
             self._draw_growth_chart()
 
@@ -216,16 +205,6 @@ class ComplexityAnalysisPage(tk.Frame):
         searching = self.data["searching"]
         self._bar(axis1, names, [searching[name]["time_ms"] for name in names], "Execution Time", COLORS["green"])
         self._bar(axis2, names, [searching[name]["comparisons"] for name in names], "Comparisons", COLORS["yellow"])
-
-    def _draw_pathfinding_chart(self) -> None:
-        axis1 = self.figure.add_subplot(131)
-        axis2 = self.figure.add_subplot(132)
-        axis3 = self.figure.add_subplot(133)
-        names = list(PATH_FUNCS)
-        path = self.data["pathfinding"]
-        self._bar(axis1, names, [path[name]["visited"] for name in names], "Nodes Visited", COLORS["cyan"])
-        self._bar(axis2, names, [path[name]["time_ms"] for name in names], "Execution Time", COLORS["green"])
-        self._bar(axis3, names, [path[name]["path_length"] for name in names], "Path Length", COLORS["magenta"])
 
     def _draw_growth_chart(self) -> None:
         axis = self.figure.add_subplot(111)
@@ -318,19 +297,7 @@ class ComplexityAnalysisPage(tk.Frame):
                 "comparisons": comparisons,
             }
 
-        walls = {(6, col) for col in range(4, 18)}
-        pathfinding_data = {}
-        for name, func in PATH_FUNCS.items():
-            start = time.perf_counter()
-            visited, path = func(20, 34, (5, 5), (14, 27), walls)
-            pathfinding_data[name] = {
-                "visited": len(visited),
-                "time_ms": (time.perf_counter() - start) * 1000,
-                "path_length": len(path),
-            }
-
         return {
             "sorting": sorting_data,
             "searching": searching_data,
-            "pathfinding": pathfinding_data,
         }

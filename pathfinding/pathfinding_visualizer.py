@@ -41,7 +41,7 @@ class PathfindingVisualizer(tk.Frame):
         self.algorithm_var = tk.StringVar(value="Dijkstra Algorithm")
 
         self._build_ui()
-        self.draw_grid()
+        self.after(100, self.draw_grid)
 
     def _build_ui(self) -> None:
         """Build the full pathfinding page."""
@@ -255,6 +255,11 @@ class PathfindingVisualizer(tk.Frame):
         self.status_var.set(f"Animating {algorithm_name}...")
         self._animate_visited()
 
+    def start(self) -> None:
+        """Shortcut-friendly alias for starting the pathfinding visualizer."""
+
+        self.start_visualization()
+
     def stop_visualization(self) -> None:
         """Stop the current animation safely."""
 
@@ -281,6 +286,11 @@ class PathfindingVisualizer(tk.Frame):
         self.end_node = (14, 27)
         self.clear_path_marks()
         self.status_var.set("Grid reset to default start and end nodes.")
+
+    def reset_visualizer(self) -> None:
+        """Shortcut-friendly alias for resetting the pathfinding visualizer."""
+
+        self.reset_grid()
 
     def clear_path_marks(self, redraw: bool = True) -> None:
         """Clear visited/path overlays but keep walls."""

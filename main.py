@@ -1,16 +1,16 @@
-"""DAA Visualizzer Pro - Interactive DAA Algorithm Visualizer.
+"""CodeVerse: Algorithm Learning Platform.
 
 Run this file to start the Tkinter desktop application.
 """
 
 from __future__ import annotations
 
+import sys
 import tkinter as tk
 from tkinter import ttk, messagebox
 
 from sorting.sorting_visualizer import SortingVisualizer
 from searching.searching_visualizer import SearchingVisualizer
-from pathfinding.pathfinding_visualizer import PathfindingVisualizer
 from utils.theme import COLORS, FONT, configure_styles
 from utils.widgets import DashboardCard, SectionFrame
 
@@ -30,14 +30,14 @@ class SplashScreen(tk.Toplevel):
 
         tk.Label(
             box,
-            text="DAA Visualizzer Pro",
+            text="CodeVerse",
             bg=COLORS["panel"],
             fg=COLORS["cyan"],
             font=(FONT, 30, "bold"),
         ).pack(pady=(58, 8))
         tk.Label(
             box,
-            text="Interactive DAA Algorithm Visualizer",
+            text="Algorithm Learning Platform",
             bg=COLORS["panel"],
             fg=COLORS["muted"],
             font=(FONT, 13),
@@ -53,7 +53,7 @@ class AlgoVisionApp(tk.Tk):
 
     def __init__(self) -> None:
         super().__init__()
-        self.title("DAA Visualizzer Pro - Interactive DAA Algorithm Visualizer")
+        self.title("CodeVerse: Algorithm Learning Platform")
         self.geometry("1280x760")
         self.minsize(1120, 680)
         self.configure(bg=COLORS["bg"])
@@ -135,11 +135,11 @@ class AlgoVisionApp(tk.Tk):
 
     def show_about(self) -> None:
         messagebox.showinfo(
-            "About DAA Visualizzer Pro",
-            "DAA Visualizzer Pro\n\n"
+            "About CodeVerse",
+            "CodeVerse: Algorithm Learning Platform\n\n"
             "A 4th semester DAA mini project built with Python, Tkinter, Canvas, "
             "OOP, and matplotlib.\n\n"
-            "Modules: Sorting, Searching, Dijkstra, and A* Pathfinding.",
+            "Modules: Sorting, Searching, Dijkstra.",
         )
 
     def show_shortcuts(self) -> None:
@@ -170,7 +170,7 @@ class Dashboard(tk.Frame):
         ).pack(anchor="w")
         tk.Label(
             hero,
-            text="Interactive DAA Algorithm Visualizer for sorting, searching, and pathfinding.",
+            text="Interactive Algorithm Learning Platform for sorting, searching, and pathfinding.",
             bg=COLORS["bg"],
             fg=COLORS["muted"],
             font=(FONT, 13),
@@ -224,13 +224,35 @@ class Dashboard(tk.Frame):
         footer.pack(fill="x", side="bottom", padx=36, pady=(4, 18))
         tk.Label(
             footer,
-            text="© 2026 DAA Visualizzer Pro | Python + Tkinter + Matplotlib",
+            text="© 2026 CodeVerse: Algorithm Learning Platform | Python + Tkinter + Matplotlib",
             bg=COLORS["bg"],
             fg=COLORS["muted"],
             font=(FONT, 10),
         ).pack(side="left")
 
 
+def main() -> int:
+    """Start CodeVerse and print a clear fix if Tkinter is unavailable."""
+
+    try:
+        app = AlgoVisionApp()
+        app.mainloop()
+    except tk.TclError as error:
+        print("\n CodeVerse could not start because Tkinter/Tcl is not working.")
+        print("This is a Python installation issue, not an CodeVerse code error.\n")
+        print(f"Details: {error}\n")
+        print("Fix:")
+        print("1. Repair or reinstall Python from python.org.")
+        print("2. In the installer, enable 'tcl/tk and IDLE' and 'pip'.")
+        print("3. Test with:")
+        print('   python -c "import tkinter as tk; root=tk.Tk(); root.destroy(); print(\'Tkinter OK\')"')
+        print("4. Then run:")
+        print(
+            '   cd "C:\\Users\\Shreyas\\OneDrive\\Desktop\\DAA Visualizer Pro\\AlgoVision"')
+        print("   python main.py\n")
+        return 1
+    return 0
+
+
 if __name__ == "__main__":
-    app = AlgoVisionApp()
-    app.mainloop()
+    sys.exit(main())

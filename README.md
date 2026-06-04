@@ -48,7 +48,17 @@ pip install -r requirements.txt
 
 ## How To Run
 
+From the main project folder:
+
 ```powershell
+cd "C:\Users\Shreyas\OneDrive\Desktop\DAA Visualizer Pro"
+python .\AlgoVision\main.py
+```
+
+Or from inside the `AlgoVision` folder:
+
+```powershell
+cd "C:\Users\Shreyas\OneDrive\Desktop\DAA Visualizer Pro\AlgoVision"
 python main.py
 ```
 
